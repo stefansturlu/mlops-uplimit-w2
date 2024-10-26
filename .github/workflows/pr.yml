@@ -1,4 +1,3 @@
-# TODO: Add in Pull Request pipeline here!
 # Name of the workflow
 name: Pull Request Workflow
 
@@ -7,7 +6,7 @@ on:
   pull_request:  # Run on all pull requests
   push:
     branches:
-      - main  # Run when pushing to the main branch
+      - master  # Run when pushing to the master branch
 
 # Define the jobs in this workflow
 jobs:
