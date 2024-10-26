@@ -22,12 +22,13 @@ app = FastAPI(
 @serve.ingress(app)
 class APIIngress:
     def __init__(self, simple_model_handle: DeploymentHandle) -> None:
-        self.handle = simple_model_handle
+        self.handle: DeploymentHandle = simple_model_handle
 
     @app.post("/predict")
     async def predict(self, request: SimpleModelRequest):
         # TODO: Use the handle.predict which is a remote function
         # to get the result
+        result = await self.handle.predict.remote(request.review)
         return SimpleModelResponse.model_validate(result.model_dump())
 
 
@@ -41,6 +42,7 @@ class SimpleModel:
 
     def predict(self, review: str) -> SimpleModelResults:
         # TODO: Use the Model.predict to get the result
+        result = Model.predict(self.session, review)
         return SimpleModelResults.model_validate(result)
 
 
